@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <title>Hello, world!</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .box{overflow:hidden;margin:20px 30px;background:#fff;padding-bottom:20px}
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <form action="/insertMessage" method="post">
+                <!--<input type="text" name="message" class="form-control" style="height: 40px;width:450px" placeholder="">-->
+                <!--<div class="panel panel-info" style="width:450px">-->
+                    <!--<div class="panel-heading">-->
+                    <!--<h3 class="panel-title" align="center">信息</h3>-->
+                    <!--</div>-->
+                    <textarea name="message" class="form-control" row="10" style="resize:none;width:100%"></textarea>
+                <!--</div>-->
+                <div>
+                    <input type="submit" class="btn btn-success" value="submit">
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 column box">
+            <h2>
+                Heading
+            </h2>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                euismod. Donec sed odio dui.
+            </p>
+            <p>
+                <a class="btn" href="#">View details »</a>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
