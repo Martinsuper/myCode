@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.martind.editorBlog.Mapper.EditorBlogMapper">
+    <insert id="insertArticle" parameterType="com.martind.editorBlog.po.Article">
+        insert into blog_article(first_editor_time, modify_time, article_title,
+        article_category,article_markdown) values (
+        #{firstEditorTime},
+        #{modifyTime},
+        #{articleTitle},
+        #{articleCategory},
+        #{articleMarkdown}
+        )
+    </insert>
+    <select id="queryAllArticle" resultType="com.martind.editorBlog.po.Article">
+        select * from blog_article order by id desc
+    </select>
+    <select id="queryArticleById" resultType="com.martind.editorBlog.po.Article">
+        select * from blog_article where id=#{id}
+    </select>
+    <delete id="deleteArticleById" parameterType="com.martind.editorBlog.po.Article">
+        delete from blog_article where id=#{id}
+    </delete>
+    <update id="updateArticle" parameterType="com.martind.editorBlog.po.Article">
+        update blog_article
+        <set>
+            article_category=#{articleCategory},
+            article_title=#{articleTitle},
+            article_markdown=#{articleMarkdown},
+            modify_time=#{modifyTime}
+        </set>
+
+        where id=#{id};
+    </update>
+</mapper>
