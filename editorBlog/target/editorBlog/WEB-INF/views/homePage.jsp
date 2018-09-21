@@ -1,9 +1,12 @@
+<!DOCTYPE html>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@include file="link/homePage_.jsp"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
 </head>
 <body>
 
@@ -27,6 +30,8 @@
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>

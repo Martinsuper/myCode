@@ -3,6 +3,7 @@ package com.martind.editorBlog.dao.impl;
 import com.martind.editorBlog.Mapper.EditorBlogMapper;
 import com.martind.editorBlog.dao.EditorArticleDao;
 import com.martind.editorBlog.po.Article;
+import com.martind.editorBlog.po.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Repository;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
+
+import static java.io.File.separator;
 
 @Repository
 public class EditorArticleDaoImpl implements EditorArticleDao {
@@ -90,10 +93,15 @@ public class EditorArticleDaoImpl implements EditorArticleDao {
 
     @Override
     public void outputToMarkdown(List<Article> articleList, String path) throws IOException {
-        File folder = new File(path);
-        folder.mkdirs();
+
         for (Article article : articleList) {
-            File file = new File(path + "\\" + article.getArticleTitle() + ".md");
+            String mypath = path + separator + article.getArticleCategory();
+            File folder = new File(mypath);
+            if(!folder.exists()){
+                folder.mkdirs();
+            }
+
+            File file = new File(mypath + separator + article.getArticleTitle() + ".md");
             FileOutputStream out = new FileOutputStream(file, true);
             StringBuffer buffer = new StringBuffer();
             buffer.append(article.getArticleMarkdown());
@@ -104,18 +112,17 @@ public class EditorArticleDaoImpl implements EditorArticleDao {
 
     @Override
     public void outputToArticle(Article article, String path) throws IOException {
-        File folder = new File(path);
-        if(folder.exists()){
-            System.out.println("文件已存在！");
-        }
-        else{
+        String mypath = path + separator + article.getArticleCategory();
+        File folder = new File(mypath);
+        if(!folder.exists()){
             folder.mkdirs();
         }
-        File file = new File(path + article.getArticleTitle() + ".md");
-        if(file.exists()){
-            file.delete();
-            System.out.println("delete!!");
+
+        File file = new File(mypath + separator + article.getArticleTitle() + ".md");
+        if(!file.exists()){
+            file.createNewFile();
         }else{
+            file.delete();
             file.createNewFile();
         }
         StringBuffer buffer = new StringBuffer();
@@ -123,5 +130,20 @@ public class EditorArticleDaoImpl implements EditorArticleDao {
         buffer.append(article.getArticleMarkdown());
         out.write(buffer.toString().getBytes("utf-8"));
         buffer.setLength(0);
+    }
+
+    @Override
+    public User queryUser(String name) throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession opensession = sqlSessionFactory.openSession(true);
+        try {
+            EditorBlogMapper mapper = opensession.getMapper(EditorBlogMapper.class);
+            User user = mapper.queryUser(name);
+            return user;
+        } finally {
+            opensession.close();
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.martind.editorBlog.service.impl;
 
 import com.martind.editorBlog.dao.EditorArticleDao;
 import com.martind.editorBlog.po.Article;
+import com.martind.editorBlog.po.User;
 import com.martind.editorBlog.service.EditorArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,10 @@ public class EditorArticleServiceImpl implements EditorArticleService {
     @Override
     public void outputToArticle(Article article, String path) throws IOException {
         editorArticleDao.outputToArticle(article,path);
+    }
+
+    @Override
+    public User queryUser(String name) throws IOException {
+        return editorArticleDao.queryUser(name);
     }
 }

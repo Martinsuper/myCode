@@ -33,4 +33,7 @@
 
         where id=#{id};
     </update>
+    <select id="queryUser" resultType="com.martind.editorBlog.po.User">
+        select * from user where user_name=#{name}
+    </select>
 </mapper>
